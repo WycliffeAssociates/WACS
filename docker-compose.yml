@@ -1,0 +1,71 @@
+version: "3"
+
+services:
+  gitea:
+    image: registry.walink.org/wa/wacs:${IMAGE_TAG}
+    restart: unless-stopped
+    volumes:
+      - gitea_data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./app.ini:/data/gitea/conf/app.ini
+    ports:
+      - "3000:3000"
+      - "222:222"
+    networks:
+      - backend
+    environment:
+      - GITEA__DEFAULT__RUN_MODE=${GITEA__DEFAULT__RUN_MODE}
+      - GITEA__server__DOMAIN=${GITEA__server__DOMAIN}
+      - GITEA__server__SSH_DOMAIN=${GITEA__server__SSH_DOMAIN}
+      - GITEA__server__SSH_PORT=${GITEA__server__SSH_PORT}
+      - GITEA__database__HOST=${GITEA__database__HOST}
+      - GITEA__database__NAME=${GITEA__database__NAME}
+      - GITEA__database__USER=${GITEA__database__USER}
+      - GITEA__database__PASSWD=${GITEA__database__PASSWD}
+      - GITEA__security__SECRET_KEY=${GITEA__security__SECRET_KEY}
+      - GITEA__security__INTERNAL_TOKEN=${GITEA__security__INTERNAL_TOKEN}
+      - GITEA__service__REGISTER_EMAIL_CONFIRM=${GITEA__service__REGISTER_EMAIL_CONFIRM}
+      - GITEA__mailer__ENABLED=${GITEA__mailer__ENABLED}
+      - GITEA__mailer__HOST=${GITEA__mailer__HOST}
+      - GITEA__mailer__USER=${GITEA__mailer__USER}
+      - GITEA__mailer__PASSWD=${GITEA__mailer__PASSWD}
+      - GITEA__mailer__FROM=${GITEA__mailer__FROM}
+      - GITEA__oauth2__JWT_SECRET=${GITEA__oauth2__JWT_SECRET}
+    depends_on:
+      db:
+        condition: service_healthy
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthz"]
+    #   interval: 5s
+    #   timeout: 5s
+    #   retries: 10
+    #   start_period: 10s
+
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    command: mariadbd --innodb-buffer-pool-size=${MARIADB_INNODB_BUFFER_POOL_SIZE}
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+volumes:
+  gitea_data:
+    external: true
+  db_data:
+
+networks:
+  backend:

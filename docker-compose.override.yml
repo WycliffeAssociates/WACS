@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  gitea:
+    volumes:
+      - ./gitea-data:/data
+
+  db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=gitea
+      - MYSQL_DATABASE=gitea
+    volumes:
+      - ./mysql-data:/var/lib/mysql
