@@ -1,0 +1,15 @@
+{{$isdv:=eq AppUrl "https://content-dev.bibletranslationtools.org/"}}
+{{$isqa:=eq AppUrl "https://content-qa.bibletranslationtools.org/"}}
+{{$dv:=and $isdv "http://read-dev.bibleineverylanguage.org/"}}
+{{$qa:=and $isqa "http://read-qa.bibleineverylanguage.org/"}}
+{{$pr:="http://read.bibleineverylanguage.org/"}}
+{{$readerBaseLink:=or $dv $qa $pr}}
+
+
+					<a class="item" href="{{$readerBaseLink}}{{.Owner.Name}}/{{.Name}}/">
+						<span>
+						{{/* {{$.locale.Tr "repo.see_on_door43"}} */}}
+{{.locale.Tr "support_link"}}
+						</span>
+	&#xfeff;<img id="door43-logo" src="/assets/img/favicon.svg"/>
+				</a>
