@@ -2,13 +2,13 @@ version: "3"
 
 services:
   gitea:
-    image: registry.walink.org/wa/wacs:${IMAGE_TAG}
+    image: wycliffeassociates/wacs:${IMAGE_TAG}
     restart: unless-stopped
     volumes:
-      - gitea_data:/data
+      - gitea_data:/var/lib/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - ./app.ini:/data/gitea/conf/app.ini
+      - ./app.ini:/etc/gitea/app.ini
     ports:
       - "3000:3000"
       - "222:222"
@@ -59,12 +59,13 @@ services:
       - db_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
+      timeout: 10s
       retries: 10
+      start_period: 5s
 
 volumes:
   gitea_data:
-    external: true
+    # external: true
   db_data:
 
 networks:
