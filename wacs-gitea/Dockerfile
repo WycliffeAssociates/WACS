@@ -11,6 +11,7 @@ WORKDIR /merge-locale
 COPY --from=LOCALE_SOURCE /var/lib/gitea/options/locale /gitea-locale
 COPY merge-locale /merge-locale
 COPY custom/options/locale /wa-locale
+
 # output files to /output-locale/*.ini
 RUN mkdir /output-locale
 RUN go build -o localeMerger
