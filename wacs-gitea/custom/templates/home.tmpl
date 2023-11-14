@@ -10,25 +10,25 @@
 
 	<div class="ui stackable middle very relaxed page grid">
 		<div class="sixteen wide left column">
-			<p>Wycliffe Associates Content Service (WACS) is an online repository for open-licensed Biblical content in any language.</p>
-			<p>BibleTranslationTools.org is an open project that is managed by <a href="https://wycliffeassociates.org/"  target="_blank">Wycliffe Associates</a> and many volunteers.</p>
+			<p>{{.locale.Tr "wa.wacs_desc" | Str2html}}</p>
+			<p>{{.locale.Tr "wa.wacs_attribution" | Str2html}}</p>
 		</div>
 
 		<div class="eight wide left column">
-			<h3>{{svg "octicon-person"}} Get Started</h3>
-			<p>First <a href="/user/sign_up" rel="nofollow">register</a> for a WACS account. This account can both be used here on WACS and in apps that connect to WACS.</p>
-			<p>If you are a translator, we suggest you start working with one of the tools on the <a href="https://bibleineverylanguage.org/tools/">Tools</a> page.</p>
-			<p>If you'd like to learn more about how to translate the Bible, check out the <a href="https://bibleineverylanguage.org/processes/">Processes</a> page.</p>
+			<h3>{{svg "octicon-person"}} {{.locale.Tr "wa.get_started"}}</h3>
+			<p>{{.locale.Tr "wa.wacs_register" | Str2html}}</p>
+			<p>{{.locale.Tr "wa.wacs_tools" | Str2html}}</p>
+			<p>{{.locale.Tr "wa.wacs_process" | Str2html}}</p>
 		</div>
 
 		<div class="eight wide left column">
-			<h3>{{svg "octicon-comment-discussion"}} Communication</h3>
-			<p>If you have questions, you can <a href="https://techadvancement.freshdesk.com/support/home">contact us</a>.
+			<h3>{{svg "octicon-comment-discussion"}} {{.locale.Tr "wa.contact_us"}}</h3>
+			<p>{{.locale.Tr "wa.wacs_contact_desc" | Str2html}}</p>
 		</div>
 
 		<div class="sixteen wide left column">
-			<h3>{{svg "octicon-gear"}} Conversion to Readable Content</h3>
-			<p>Every change made in WACS automatically creates a web page on the <a href="https://read.bibleinverylanguage.org" rel="nofollow">reader website</a>.</p>
+			<h3>{{svg "octicon-gear"}} {{.locale.Tr "wa.wacs_reader_conversion"}}</h3>
+			<p>{{.locale.Tr "wa.wacs_reader_conversion_desc" | Str2html}}</p>
 		</div>
 	</div>
 </div>

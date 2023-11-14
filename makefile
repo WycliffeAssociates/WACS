@@ -2,10 +2,21 @@
 build:
 	export IMAGE_TAG="local" \
 	&& cd wacs-gitea \
+	&& docker build -t wycliffeassociates/wacs:$${IMAGE_TAG} .
+
+.PHONY: build-nocache
+build:
+	export IMAGE_TAG="local" \
+	&& cd wacs-gitea \
 	&& docker build --no-cache -t wycliffeassociates/wacs:$${IMAGE_TAG} .
 
 .PHONY: run
-run: build
+run:
+	export IMAGE_TAG="local" \
+	&& docker compose up -d
+
+.PHONY: build-run
+build-run: build
 	export IMAGE_TAG="local" \
 	&& docker compose up -d
 
