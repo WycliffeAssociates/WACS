@@ -15,7 +15,7 @@ func main() {
 	// Define directory paths
 	waLocaleDir := path.Join("/wa-locale")
 	giteaLocaleDir := path.Join("/gitea-locale")
-	outputDir := ("/outputDir")
+	outputDir := ("/output-locale")
 
 	// Read custom locales
 	waLocaleFiles, err := os.ReadDir(waLocaleDir)
