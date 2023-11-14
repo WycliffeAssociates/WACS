@@ -27,7 +27,7 @@ COPY --chown=git:git --from=LOCALE_BUILDER /output-locale/*.ini /custom/options/
 COPY --chown=git:git ./custom/templates /custom/templates
 COPY ./custom/public /custom/public
 
-ENV READER_BASE_LINK=read-dev.bibleineverylanguage.org
+ENV READER_BASE_LINK=https://read-dev.bibleineverylanguage.org/
 
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
