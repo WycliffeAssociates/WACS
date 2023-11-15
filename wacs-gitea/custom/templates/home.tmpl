@@ -1,11 +1,11 @@
 {{template "base/head" .}}
-<div role="main" aria-label="{{if .IsSigned}}{{.locale.Tr "dashboard"}}{{else}}{{.locale.Tr "home"}}{{end}}" class="page-content home">
+<div role="main" aria-label="{{if .IsSigned}}{{.locale.Tr "dashboard"}}{{else}}{{.locale.Tr "home"}}{{end}}">
 	<div class="gt-mb-5 gt-px-5">
 		<div class="center">
 			<img class="logo" width="220" height="220" src="{{AssetUrlPrefix}}/img/logo.svg" alt="{{.locale.Tr "logo"}}">
 			<div class="hero">
 				<h1 class="ui icon header title">
-					{.locale.Tr "wa.wacs_title"}
+					{{.locale.Tr "wa.wacs_title"}}
 				</h1>
 				<h2>{{.locale.Tr "wa.wacs_desc"}}</h2>
 			</div>
@@ -30,7 +30,16 @@
 	<div class="ui stackable middle very relaxed page grid">
 		<div class="eight wide center column">
 			<h1 class="hero ui icon header">
-				{{svg "octicon-search"}} {{.locale.Tr "explore"}}
+                <a rel="nofollow" href="{{AppSubUrl}}/explore/repos">
+				    {{svg "octicon-search"}} {{.locale.Tr "explore"}}
+                </a>
+			</h1>
+		</div>
+        <div class="eight wide center column">
+			<h1 class="hero ui icon header">
+                <a rel="nofollow" href="https://techadvancement.freshdesk.com/support/home">
+				    {{svg "octicon-mail"}} {{.locale.Tr "wa.contact_us"}}
+                </a>
 			</h1>
 		</div>
 	</div>
