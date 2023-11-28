@@ -1,4 +1,4 @@
-ARG GITEA_VERSION=1.20
+ARG GITEA_VERSION=1.21
 
 # Grab the locale files from the gitea binary in the image
 FROM gitea/gitea:${GITEA_VERSION}-rootless as LOCALE_SOURCE

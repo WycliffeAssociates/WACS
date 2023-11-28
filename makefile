@@ -31,7 +31,7 @@ down:
 
 .PHONY: clean
 clean:
-	docker compose down && sudo rm -rf ./gitea-data && sudo rm -rf ./mysql-data
+	docker compose down -v
 
 .PHONY: logs
 logs:
