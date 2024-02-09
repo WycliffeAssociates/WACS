@@ -21,9 +21,9 @@ ENV GITEA_CUSTOM=/custom
 ENV READER_BASE_LINK=https://read-dev.bibleineverylanguage.org/
 
 # COPY's need permissions set for rootless
-COPY --chown=git:git --from=LOCALE_BUILDER /output-locale/*.ini /custom/options/locale/
-COPY --chown=git:git ./custom/templates /custom/templates
-COPY --chown=git:git ./custom/public /custom/public
+COPY --chown=1001:1002 --from=LOCALE_BUILDER /output-locale/*.ini /custom/options/locale/
+COPY --chown=1001:1002 ./custom/templates /custom/templates
+COPY --chown=1001:1002 ./custom/public /custom/public
 
 # dumb-init for clean startup and shutdown as per the parent image.
 # Startup is done this way to still use dumb-init like the partent image; this is how dumb-init suggests to do it.

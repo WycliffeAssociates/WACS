@@ -2,19 +2,22 @@ version: "3"
 
 services:
   gitea:
-    image: wycliffeassociates/wacs:${IMAGE_TAG}
+    image: gitea/gitea:1.12
     restart: unless-stopped
     volumes:
       - gitea_data:/var/lib/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - ./config:/etc/gitea
+      - ./config/app.ini:/data/gitea/conf/app.ini
     ports:
       - "3000:3000"
       - "222:222"
     networks:
       - backend
     environment:
+      - USER_UID=1001
+      - USER_GID=1002
       - GITEA__DEFAULT__RUN_MODE=${GITEA__DEFAULT__RUN_MODE}
       - GITEA__server__DOMAIN=${GITEA__server__DOMAIN}
       - GITEA__server__SSH_DOMAIN=${GITEA__server__SSH_DOMAIN}
@@ -57,15 +60,29 @@ services:
       - backend
     volumes:
       - db_data:/var/lib/mysql
+      - db_backup_data:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
       retries: 10
       start_period: 5s
+  util:
+    image: ubuntu:22.04
+    entrypoint: bash -c 'while :; do :; done & kill -STOP $! && wait $!'
+    volumes:
+      - db_data:/var/lib/mysql
+      - gitea_data:/var/lib/gitea
+      - db_backup_data:/docker-entrypoint-initdb.d
+      - ./:/dotslash
+
+    tty: true
+    networks:
+      - backend
 
 volumes:
   gitea_data:
   db_data:
+  db_backup_data:
 
 networks:
   backend:
