@@ -3,9 +3,10 @@ version: "3"
 services:
   gitea:
     image: wycliffeassociates/wacs:${IMAGE_TAG}
+    user: 1001:1002
     restart: unless-stopped
     volumes:
-      - gitea_data:/var/lib/gitea
+      - ./gitea_data:/var/lib/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - ./config:/etc/gitea
@@ -27,7 +28,8 @@ services:
       - GITEA__security__INTERNAL_TOKEN=${GITEA__security__INTERNAL_TOKEN}
       - GITEA__service__REGISTER_EMAIL_CONFIRM=${GITEA__service__REGISTER_EMAIL_CONFIRM}
       - GITEA__mailer__ENABLED=${GITEA__mailer__ENABLED}
-      - GITEA__mailer__HOST=${GITEA__mailer__HOST}
+      - GITEA__mailer__SMTP_ADDR=${GITEA__mailer__SMTP_ADDR}
+      - GITEA__mailer__SMTP_PORT=$(GITEA__mailer__SMTP_PORT)
       - GITEA__mailer__USER=${GITEA__mailer__USER}
       - GITEA__mailer__PASSWD=${GITEA__mailer__PASSWD}
       - GITEA__mailer__FROM=${GITEA__mailer__FROM}
