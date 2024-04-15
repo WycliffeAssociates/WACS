@@ -6,7 +6,7 @@ services:
     user: 1001:1002
     restart: unless-stopped
     volumes:
-      - ./gitea_data:/var/lib/gitea
+      - gitea_data:/var/lib/gitea
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - ./config:/etc/gitea
