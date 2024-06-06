@@ -14,7 +14,7 @@ services:
       - "3000:3000"
       - "222:222"
     environment:
-      - GITEA__DEFAULT__RUN_MODE=${GITEA__DEFAULT__RUN_MODE}
+      - GITEA____RUN_MODE=${GITEA____RUN_MODE}
       - GITEA__server__DOMAIN=${GITEA__server__DOMAIN}
       - GITEA__server__SSH_DOMAIN=${GITEA__server__SSH_DOMAIN}
       - GITEA__server__SSH_PORT=${GITEA__server__SSH_PORT}

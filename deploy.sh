@@ -33,7 +33,7 @@ export GITEA__database__USER=$(op read "op://wacs/wacs-mariadb/$DEPLOY_ENV/usern
 export GITEA__database__PASSWD=$(op read "op://wacs/wacs-mariadb/$DEPLOY_ENV/password")
 
 # Gitea app.ini server and secret overrides
-export GITEA__DEFAULT__RUN_MODE=$DEPLOY_ENV
+export GITEA____RUN_MODE=$DEPLOY_ENV
 export GITEA__server__DOMAIN=$(op read "op://wacs/wacs-gitea-secrets/$DEPLOY_ENV/domain")
 export GITEA__server__SSH_DOMAIN=$(op read "op://wacs/wacs-gitea-secrets/$DEPLOY_ENV/ssh-domain")
 export GITEA__server__SSH_PORT=22
