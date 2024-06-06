@@ -44,6 +44,7 @@ export GITEA__oauth2__JWT_SECRET=$(op read "op://wacs/wacs-gitea-secrets/$DEPLOY
 export GITEA__service__CAPTCHA_TYPE=$(op read "op://wacs/wacs-gitea-secrets/$DEPLOY_ENV/GITEA__service__CAPTCHA_TYPE")
 export GITEA__service__CF_TURNSTILE_SECRET=$(op read "op://wacs/wacs-gitea-secrets/$DEPLOY_ENV/GITEA__service__CF_TURNSTILE_SECRET")
 export GITEA__service__CF_TURNSTILE_SITEKEY=$(op read "op://wacs/wacs-gitea-secrets/$DEPLOY_ENV/GITEA__service__CF_TURNSTILE_SITEKEY")
+export GITEA__log__LEVEL=$(op read "op://wacs/wacs-gitea-secrets/$DEPLOY_ENV/GITEA__log__LEVEL")
 
 # Gitea app.ini mailer overrides
 if [[ "$DEPLOY_ENV" = "prod" ]]; then

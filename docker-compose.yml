@@ -35,6 +35,7 @@ services:
       - GITEA__service__CAPTCHA_TYPE=${GITEA__service__CAPTCHA_TYPE}
       - GITEA__service__CF_TURNSTILE_SECRET=${GITEA__service__CF_TURNSTILE_SECRET}
       - GITEA__service__CF_TURNSTILE_SITEKEY=${GITEA__service__CF_TURNSTILE_SITEKEY}
+      - GITEA__log__LEVEL=${GITEA__log__LEVEL}
     env_file:
       - .env
     depends_on:
