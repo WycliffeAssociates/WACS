@@ -52,6 +52,7 @@ if [[ "$DEPLOY_ENV" = "prod" ]]; then
   export GITEA__mailer__SMTP_ADDR=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/server")
   export GITEA__mailer__SMTP_PORT=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/port number")
   export GITEA__mailer__USER=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/username")
+  export GITEA__mailer__FROM=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/username")
   export GITEA__mailer__PASSWD=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/password")
 fi
 
