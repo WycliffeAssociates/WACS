@@ -36,6 +36,7 @@ services:
       - GITEA__service__CF_TURNSTILE_SECRET=${GITEA__service__CF_TURNSTILE_SECRET}
       - GITEA__service__CF_TURNSTILE_SITEKEY=${GITEA__service__CF_TURNSTILE_SITEKEY}
       - GITEA__log__LEVEL=${GITEA__log__LEVEL}
+      - READER_BASE_LINK=${READER_BASE_LINK}
     env_file:
       - .env
     depends_on:
