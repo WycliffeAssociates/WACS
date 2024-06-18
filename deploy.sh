@@ -54,8 +54,7 @@ if [[ "$DEPLOY_ENV" = "prod" ]]; then
   export GITEA__mailer__USER=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/username")
   export GITEA__mailer__FROM=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/username")
   export GITEA__mailer__PASSWD=$(op read "op://Shared-IT-Development/d52sfisg5cry5yfpj2lynfq3ru/password")
-  export READER_BASE_LINK=read.bibletranslationtools.org
-fi
+  export READER_BASE_LINK=https://read.bibleineverylanguage.org/
 
 # Docker-compose vars
 export IMAGE_TAG=$DEPLOY_ENV
