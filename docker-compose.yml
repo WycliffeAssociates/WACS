@@ -42,6 +42,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthz"]
       interval: 5s
@@ -67,6 +69,17 @@ services:
       timeout: 10s
       retries: 10
       start_period: 5s
+
+  redis:
+    image: valkey/valkey:7.2
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 10
+      timeout: 5s
+      start_period: 5s
+    
 
 volumes:
   gitea_data:
