@@ -5,7 +5,7 @@ build:
 	&& docker build -t wycliffeassociates/wacs:$${IMAGE_TAG} .
 
 .PHONY: build-nocache
-build:
+build-nocache:
 	export IMAGE_TAG="local" \
 	&& cd wacs-gitea \
 	&& docker build --no-cache -t wycliffeassociates/wacs:$${IMAGE_TAG} .
