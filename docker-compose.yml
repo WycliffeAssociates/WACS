@@ -54,7 +54,7 @@ services:
   db:
     image: mariadb:10.11
     restart: unless-stopped
-    command: mariadbd --innodb-buffer-pool-size=${MARIADB_INNODB_BUFFER_POOL_SIZE} --max_connections=${MARIADB_INNODB_MAX_CONNECTIONS}
+    command: mariadbd --innodb-buffer-pool-size=${MARIADB_INNODB_BUFFER_POOL_SIZE} --max_connections=${MARIADB_MAX_CONNECTIONS}
     environment:
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       - MARIADB_USER=${MARIADB_USER}
