@@ -1,3 +1,12 @@
 <a class="item" href="$READER_BASE_LINK{{.Repository.OwnerName}}/{{.Repository.Name}}">
 	<img id="wa-logo" src="/assets/img/favicon.svg"/> {{ctx.Locale.Tr "wa.see_in_reader"}} {{svg "octicon-link-external"}}
 </a>
+{{range .Repository.Topics}}
+  {{if eq (StringUtils.ToUpper .) "CONSOLIDATED"}}
+    <a class="item" href="$LINTER_BASE_LINK{{$.Repository.OwnerName}}/{{$.Repository.Name}}">
+{{ctx.Locale.Tr "wa.see_in_linter"}} {{svg "octicon-link-external"}}
+    </a>
+  {{end}}
+{{end}}
+
+

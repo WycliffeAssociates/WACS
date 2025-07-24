@@ -37,6 +37,7 @@ services:
       - GITEA__service__CF_TURNSTILE_SITEKEY=${GITEA__service__CF_TURNSTILE_SITEKEY}
       - GITEA__log__LEVEL=${GITEA__log__LEVEL}
       - READER_BASE_LINK=${READER_BASE_LINK}
+      - LINTER_BASE_LINK=${LINTER_BASE_LINK}
     env_file:
       - .env
     depends_on:
@@ -65,7 +66,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 10s
       retries: 10
       start_period: 5s
@@ -79,7 +80,6 @@ services:
       retries: 10
       timeout: 5s
       start_period: 5s
-    
 
 volumes:
   gitea_data:
