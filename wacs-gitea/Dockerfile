@@ -1,4 +1,4 @@
-ARG GITEA_VERSION=1.21
+ARG GITEA_VERSION=1.23.8
 
 # Grab the locale files from the gitea binary in the image
 FROM gitea/gitea:${GITEA_VERSION}-rootless as LOCALE_SOURCE
@@ -42,6 +42,7 @@ ENV GITEA_APP_INI /config/app.ini
 ENV GITEA_CUSTOM=/custom
 # This ENV is functional, but it is here as an example of what the value should be at runtime
 ENV READER_BASE_LINK=https://read-dev.bibleineverylanguage.org/
+ENV LINTER_BASE_LINK=https://usfmlinter.walink.org/ListScans/
 
 # COPY's need permissions set for rootless
 COPY --chown=1001:1002 --from=LOCALE_BUILDER /output-locale/*.ini /custom/options/locale/

@@ -37,10 +37,13 @@ services:
       - GITEA__service__CF_TURNSTILE_SITEKEY=${GITEA__service__CF_TURNSTILE_SITEKEY}
       - GITEA__log__LEVEL=${GITEA__log__LEVEL}
       - READER_BASE_LINK=${READER_BASE_LINK}
+      - LINTER_BASE_LINK=${LINTER_BASE_LINK}
     env_file:
       - .env
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthz"]
@@ -52,7 +55,7 @@ services:
   db:
     image: mariadb:10.11
     restart: unless-stopped
-    command: mariadbd --innodb-buffer-pool-size=${MARIADB_INNODB_BUFFER_POOL_SIZE}
+    command: mariadbd --innodb-buffer-pool-size=${MARIADB_INNODB_BUFFER_POOL_SIZE} --max_connections=${MARIADB_MAX_CONNECTIONS}
     environment:
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       - MARIADB_USER=${MARIADB_USER}
@@ -63,9 +66,19 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 10s
       retries: 10
+      start_period: 5s
+
+  redis:
+    image: valkey/valkey:7.2
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 10
+      timeout: 5s
       start_period: 5s
 
 volumes:

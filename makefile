@@ -5,7 +5,7 @@ build:
 	&& docker build -t wycliffeassociates/wacs:$${IMAGE_TAG} .
 
 .PHONY: build-nocache
-build:
+build-nocache:
 	export IMAGE_TAG="local" \
 	&& cd wacs-gitea \
 	&& docker build --no-cache -t wycliffeassociates/wacs:$${IMAGE_TAG} .
@@ -23,7 +23,7 @@ build-run: build
 # Use this when started locally to create a user that you can log in as. username: admin2 password: 1234
 .PHONY: admin-user
 admin-user:
-	docker compose exec gitea /usr/local/bin/gitea -c '/etc/gitea/app.ini' admin user create --username admin2 --password 1234 --email asdf@example.com --admin
+	docker compose exec gitea /usr/local/bin/gitea --config '/config/app.ini' admin user create --username admin2 --password 1234 --email asdf@example.com --admin
 
 .PHONY: down
 down: 
