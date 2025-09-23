@@ -8,5 +8,75 @@
 		<div>
 			{{ctx.Locale.Tr "wa.footer_license" }}
 		</div>
+		<button id="share-url-btn" style="background-color: transparent; border: none;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 11h8V3H3zm2-6h4v4H5zM3 21h8v-8H3zm2-6h4v4H5zm8-12v8h8V3zm6 6h-4V5h4zm-5.99 4h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm4 0h2v2h-2zm2 2h2v2h-2zm-4 0h2v2h-2zm2-6h2v2h-2zm2 2h2v2h-2z"/></svg></button>
+		<button id="webShare-btn" style="background-color: transparent; border: none;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-7-7v4C7 10 4 15 3 20c2.5-3.5 6-5.1 11-5.1V19z"/></svg>
+		</button>
 	</div>
+	<dialog id="share-url-dialog">
+		<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;"> 
+		<button id="close-qr-code-btn" autofocus>Close QR Code</button>
+		<canvas id="qr-canvas"></canvas>
+		</div>
+	</div>
+	</dialog>
 </footer>
+<style>
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+</style>
+
+
+<script src="/assets/scripts/qrcode.js"></script>
+<script>
+const theDialog = document.querySelector("#share-url-dialog");
+const openDialogBtn = document.querySelector("#share-url-btn");
+const closeDialogBtn = document.querySelector("#close-qr-code-btn");
+const qrCanvas = document.querySelector("#qr-canvas");
+const webShareBtn = document.querySelector("#webShare-btn");
+
+openDialogBtn?.addEventListener("click", () => {
+    theDialog.showModal();
+	  generateQRCode();
+	});
+
+closeDialogBtn?.addEventListener("click", () => {
+    theDialog.close();
+});
+
+webShareBtn?.addEventListener("click", () => {
+    webShare();
+});
+
+function generateQRCode() {
+	if (!window.QRCode) {
+		console.error("QRCode is not defined");
+		return;
+	}
+
+//width and height should be a square of the largest dimension; 
+const smallestDimension = Math.min(window.innerWidth, window.innerHeight);
+const width = Math.max(200, smallestDimension * 0.6);
+const height = Math.max(200, smallestDimension * 0.6);
+QRCode.toCanvas(qrCanvas, window.location.href, {width:width, height:height}, function (error) {
+    if (error) console.error(error)
+    console.log('success!');
+  })
+}
+
+async function webShare() {
+	try {
+	if (navigator.share) {
+		await navigator.share({
+			text: "Sharing this page on WACS",
+			url: window.location.href,
+		});
+		}
+	}
+	catch (error) {
+		console.error("Error sharing:", error);
+	}
+}
+</script>
