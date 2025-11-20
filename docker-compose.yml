@@ -38,6 +38,8 @@ services:
       - GITEA__log__LEVEL=${GITEA__log__LEVEL}
       - READER_BASE_LINK=${READER_BASE_LINK}
       - LINTER_BASE_LINK=${LINTER_BASE_LINK}
+      - GREEKROOM_BASE_LINK=${GREEKROOM_BASE_LINK}
+      - DOVETAIL_WEB_BASE_LINK=${DOVETAIL_WEB_BASE_LINK}
     env_file:
       - .env
     depends_on:

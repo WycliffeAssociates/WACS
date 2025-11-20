@@ -43,6 +43,8 @@ ENV GITEA_CUSTOM=/custom
 # This ENV is functional, but it is here as an example of what the value should be at runtime
 ENV READER_BASE_LINK=https://read-dev.bibleineverylanguage.org/
 ENV LINTER_BASE_LINK=https://usfmlinter.walink.org/ListScans/
+ENV GREEKROOM_BASE_LINK=http://localhost:5173/scaffold?url=
+ENV DOVETAIL_WEB_BASE_LINK=https://greekroom-api.wycliffe-associates-account.workers.dev/view/
 
 # COPY's need permissions set for rootless
 COPY --chown=1001:1002 --from=LOCALE_BUILDER /output-locale/*.ini /custom/options/locale/

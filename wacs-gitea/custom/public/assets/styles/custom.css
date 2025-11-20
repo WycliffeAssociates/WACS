@@ -11,3 +11,80 @@ a[href="https://docs.gitea.com"]
   white-space: nowrap;
   border-width: 0;
 }
+/* WRAPPER */
+.custom-dropdown-wrapper {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 100%; /* Matches Navbar height */
+}
+
+/* TRIGGER (The "Tools" text) */
+.custom-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  user-select: none;
+}
+.custom-dropdown-trigger:hover {
+  color: var(--color-text-light-1);
+}
+
+/* MENU CONTAINER */
+.custom-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10000;
+  min-width: 220px;
+  padding: 6px 0;
+  border-radius: 4px;
+
+  /* THEME VARIABLES */
+  background-color: var(--color-menu); /* Dark: #171a1e */
+  border: 1px solid var(--color-secondary); /* Dark: #3b444c */
+  box-shadow: 0 6px 18px var(--color-shadow);
+}
+
+/* HIDE STATE */
+.custom-dropdown-menu.hidden {
+  display: none;
+}
+
+/* MENU ITEMS */
+.custom-menu-item {
+  display: flex !important;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none !important;
+  transition: background-color 0.1s ease;
+
+  /* THEME VARIABLES */
+  color: var(--color-text) !important; /* Dark: #d0d5da */
+  border-bottom: 1px solid transparent; /* Keeps layout stable */
+}
+
+/* HOVER STATE */
+.custom-menu-item:hover {
+  /* Using --color-hover which is transparent white/blue in dark mode */
+  background-color: var(--color-hover);
+  color: var(
+    --color-text-dark
+  ) !important; /* Dark: #f7f8f9 (Brighter text on hover) */
+}
+
+/* ICONS */
+.custom-menu-item .custom-icon {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-light-2);
+}
+
+.custom-menu-item .right-icon {
+  margin-left: auto;
+  opacity: 0.5;
+  color: var(--color-text-light-3);
+}
