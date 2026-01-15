@@ -1,14 +1,23 @@
-<a class="item" href="$READER_BASE_LINK{{.Repository.OwnerName}}/{{.Repository.Name}}">
-	<img id="wa-logo" src="/assets/img/favicon.svg"/> {{ctx.Locale.Tr "wa.see_in_reader"}} {{svg "octicon-link-external"}}
-</a>
-{{range .Repository.Topics}}
-  {{if eq (StringUtils.ToUpper .) "CONSOLIDATED"}}
-    <a class="item" href="$LINTER_BASE_LINK{{$.Repository.OwnerName}}/{{$.Repository.Name}}">
-{{ctx.Locale.Tr "wa.see_in_linter"}} {{svg "octicon-link-external"}}
-    </a>
-  {{end}}
-{{end}}
+<!-- CUSTOM DROPDOWN -->
+<div class="item custom-dropdown-wrapper" id="my-tools-dropdown">
+    
+    <!-- Trigger -->
+    <div class="custom-dropdown-trigger">
+        {{svg "octicon-link-external"}} 
+        <span class="custom-label">Open in</span>
+        {{svg "octicon-triangle-down" 14}}
+    </div>
 
+    <!-- Menu -->
+    <div class="custom-dropdown-menu hidden">
+        
+        <!-- 1. Reader -->
+        <a class="custom-menu-item" href="$READER_BASE_LINK{{.Repository.OwnerName}}/{{.Repository.Name}}" target="_blank">
+         <span class="custom-icon">
+           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><g fill="none"><path d="M20.5 2.5h-14a3 3 0 0 0-3 3v13a3 3 0 0 1 3-3h14z"/><path stroke="currentColor" stroke-linecap="square" stroke-width="2" d="M20.5 21.5h-14a3 3 0 1 1 0-6h14zm0 0v-19h-14a3 3 0 0 0-3 3v12m8-11h5"/></g></svg>
+            </span>
+            {{ctx.Locale.Tr "wa.see_in_reader"}} 
+        </a>
 
         <!-- CONSOLIDATED TOPICS ONLY -->
         {{range .Repository.Topics}}
@@ -18,6 +27,24 @@
                 <a class="custom-menu-item" href="$LINTER_BASE_LINK{{$.Repository.OwnerName}}/{{$.Repository.Name}}" target="_blank">
                    <span class="custom-icon">{{svg "octicon-check-circle"}}</span>
                    {{ctx.Locale.Tr "wa.see_in_linter"}}
+                </a>
+
+                <!-- 3. Dovetail (Scaffold) -->
+                <!-- 
+                   We use data attributes to store the pieces. 
+                   JS will grab window.location.origin and combine them.
+                -->
+                <a class="custom-menu-item js-dovetail-link" 
+                   href="#" 
+                   target="_blank"
+                   data-dovetail-base="$DOVETAIL_WEB_BASE_LINK"
+                   data-owner="{{$.Repository.OwnerName}}"
+                   data-repo="{{$.Repository.Name}}"
+                   data-branch="{{$.BranchName}}">
+                   <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 28 28">
+                        <path fill="currentColor" d="M10 16.796a.75.75 0 0 1 .957-.721l5.543 1.589v-7.328l-5.543 1.589a.75.75 0 0 1-.957-.721V3H6.75A3.75 3.75 0 0 0 3 6.75v14.5A3.75 3.75 0 0 0 6.75 25H10zM21.25 3H11.5v7.209l5.543-1.589a.75.75 0 0 1 .957.721v9.318a.75.75 0 0 1-.957.721L11.5 17.791V25h9.75A3.75 3.75 0 0 0 25 21.25V6.75A3.75 3.75 0 0 0 21.25 3"/>
+                    </svg>
+                    Dovetail
                 </a>
 
                 <!-- 4. GreekRoom -->
