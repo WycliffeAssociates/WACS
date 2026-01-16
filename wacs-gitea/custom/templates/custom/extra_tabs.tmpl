@@ -29,24 +29,6 @@
                    {{ctx.Locale.Tr "wa.see_in_linter"}}
                 </a>
 
-                <!-- 3. Dovetail (Scaffold) -->
-                <!-- 
-                   We use data attributes to store the pieces. 
-                   JS will grab window.location.origin and combine them.
-                -->
-                <a class="custom-menu-item js-dovetail-link" 
-                   href="#" 
-                   target="_blank"
-                   data-dovetail-base="$DOVETAIL_WEB_BASE_LINK"
-                   data-owner="{{$.Repository.OwnerName}}"
-                   data-repo="{{$.Repository.Name}}"
-                   data-branch="{{$.BranchName}}">
-                   <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 28 28">
-                        <path fill="currentColor" d="M10 16.796a.75.75 0 0 1 .957-.721l5.543 1.589v-7.328l-5.543 1.589a.75.75 0 0 1-.957-.721V3H6.75A3.75 3.75 0 0 0 3 6.75v14.5A3.75 3.75 0 0 0 6.75 25H10zM21.25 3H11.5v7.209l5.543-1.589a.75.75 0 0 1 .957.721v9.318a.75.75 0 0 1-.957.721L11.5 17.791V25h9.75A3.75 3.75 0 0 0 25 21.25V6.75A3.75 3.75 0 0 0 21.25 3"/>
-                    </svg>
-                    Dovetail
-                </a>
-
                 <!-- 4. GreekRoom -->
                 <!-- 
                    Structure: $GREEKROOM_BASE_LINK/Owner/Repo (Defaults to master)
