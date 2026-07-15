@@ -1,20 +1,20 @@
-ARG GITEA_VERSION=1.23.8
+ARG FORGEJO_VERSION=10.0.3
 
-# Grab the locale files from the gitea binary in the image
-FROM gitea/gitea:${GITEA_VERSION}-rootless as LOCALE_SOURCE
-RUN gitea embedded extract --destination /var/lib/gitea/ options/locale/**.*
+# Grab the locale files from the forgejo binary in the image
+FROM codeberg.org/forgejo/forgejo:${FORGEJO_VERSION}-rootless AS locale_source
+RUN forgejo embedded extract --destination /var/lib/gitea/ options/locale/**.*
 
-# Build locale files from gitea, with WA's overrides and new keys
-FROM golang:1.20 as LOCALE_BUILDER
+# Build locale files from forgejo, with WA's overrides and new keys
+FROM golang:1.20 AS locale_builder
 WORKDIR /merge-locale
-COPY --from=LOCALE_SOURCE /var/lib/gitea/options/locale /gitea-locale
+COPY --from=locale_source /var/lib/gitea/options/locale /gitea-locale
 COPY merge-locale /merge-locale
 COPY custom/options/locale /wa-locale
 RUN mkdir /output-locale
 RUN go build -o localeMerger
 RUN /merge-locale/localeMerger
 
-FROM gitea/gitea:${GITEA_VERSION}-rootless
+FROM codeberg.org/forgejo/forgejo:${FORGEJO_VERSION}-rootless
 USER root
 RUN deluser \
         git && \
@@ -38,14 +38,14 @@ USER 1001:1002
 
 # The parent image makes /etc/gitea a volume. We don't want to store the config in a volume, so we put it in /config
 # The docker-compose.yml should have a gitea-config volume mapped to /etc/gitea, but there won't be anything in it.
-ENV GITEA_APP_INI /config/app.ini
+ENV GITEA_APP_INI=/config/app.ini
 ENV GITEA_CUSTOM=/custom
 # This ENV is functional, but it is here as an example of what the value should be at runtime
 ENV READER_BASE_LINK=https://read-dev.bibleineverylanguage.org/
 ENV LINTER_BASE_LINK=https://usfmlinter.walink.org/ListScans/
 
 # COPY's need permissions set for rootless
-COPY --chown=1001:1002 --from=LOCALE_BUILDER /output-locale/*.ini /custom/options/locale/
+COPY --chown=1001:1002 --from=locale_builder /output-locale/*.ini /custom/options/locale/
 COPY --chown=1001:1002 ./custom/templates /custom/templates
 COPY --chown=1001:1002 ./custom/public /custom/public
 
