@@ -10,6 +10,25 @@ We take **Path A (true schema reversal)**, not the `UPDATE version SET
 version=305` "version-pin and let Forgejo reconcile forward" shortcut. Path A
 produces a genuinely valid 1.22 database, which is more stable and verifiable.
 
+## Full upgrade path
+
+The end-to-end path is:
+
+```
+gitea 1.23.8 → gitea 1.22.6 → forgejo 10 → forgejo 15
+```
+
+This directory only covers the **1.23 → 1.22 schema reversal** — the one step
+Forgejo cannot do itself, because Forgejo only adopts a Gitea database at the
+1.22 baseline. Everything after that is a normal Forgejo forward-migration:
+Forgejo 10 adopts the 1.22 database and runs its own migrations on boot, and
+Forgejo 15 forward-migrates from the 10 schema on boot. No further de-migration
+script is needed for the 10 → 15 step.
+
+Work is split across two branches: `forgejo-10-migration` holds the migration
+tooling and the Forgejo 10 rebase; `forgejo15` carries the image bump to
+Forgejo 15 on top of it.
+
 ## Why this is data-preserving
 
 `demigrate-1.23-to-1.22.mariadb.sql` was derived by diffing fresh-install schema
