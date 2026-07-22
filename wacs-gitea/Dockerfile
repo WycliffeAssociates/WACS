@@ -1,4 +1,4 @@
-ARG FORGEJO_VERSION=10.0.3
+ARG FORGEJO_VERSION=15
 
 # Grab the locale files from the forgejo binary in the image
 FROM codeberg.org/forgejo/forgejo:${FORGEJO_VERSION}-rootless AS locale_source
