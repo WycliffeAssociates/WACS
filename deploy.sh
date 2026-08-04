@@ -59,7 +59,7 @@ if [[ "$DEPLOY_ENV" = "prod" ]]; then
 fi
 
 # Docker-compose vars
-export IMAGE_TAG=$DEPLOY_ENV
+export IMAGE_TAG=${IMAGE_TAG:-$DEPLOY_ENV}
 export EXTERNAL_DATA_BOOL=true
 
 docker compose down
