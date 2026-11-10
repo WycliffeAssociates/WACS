@@ -8,6 +8,14 @@ import (
 	"github.com/go-ini/ini"
 )
 
+// Parse locale files the way Forgejo does. With go-ini's defaults, '#' and ';'
+// start an inline comment, which silently truncates any value containing a URL
+// fragment (#...) or an HTML entity (&quot; &nbsp; ...).
+var localeLoadOptions = ini.LoadOptions{
+	IgnoreInlineComment: true,
+	IgnoreContinuation:  true,
+}
+
 func main() {
 	fmt.Println("Running locale merge script")
 
@@ -32,7 +40,7 @@ func main() {
 		// Check if the base locale file exists
 		if _, err := os.Stat(giteaLocalePath); err == nil {
 			// Read custom data
-			waLocaleData, err := ini.Load(waLocalePath)
+			waLocaleData, err := ini.LoadSources(localeLoadOptions, waLocalePath)
 			if err != nil {
 				fmt.Println("Error loading custom data:", err)
 				continue
@@ -40,7 +48,7 @@ func main() {
 
 
 			// Read base data
-			giteaData, err := ini.Load(giteaLocalePath)
+			giteaData, err := ini.LoadSources(localeLoadOptions, giteaLocalePath)
 			if err != nil {
 				fmt.Println("Error loading base data:", err)
 				continue
