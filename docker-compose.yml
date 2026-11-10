@@ -55,7 +55,7 @@ services:
   db:
     image: mariadb:10.11
     restart: unless-stopped
-    command: mariadbd --innodb-buffer-pool-size=${MARIADB_INNODB_BUFFER_POOL_SIZE} --max_connections=${MARIADB_MAX_CONNECTIONS}
+    command: mariadbd --innodb-buffer-pool-size=${MARIADB_INNODB_BUFFER_POOL_SIZE} --max_connections=${MARIADB_MAX_CONNECTIONS} --slow-query-log=1 --log-slow-query-time=2
     environment:
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       - MARIADB_USER=${MARIADB_USER}
@@ -74,6 +74,10 @@ services:
   redis:
     image: valkey/valkey:7.2
     restart: unless-stopped
+    # Cache + sessions only (queues use Forgejo's on-disk level queue).
+    # No persistence: nothing here needs to survive a restart, and skipping
+    # BGSAVE avoids fork/copy-on-write memory spikes. Evict only keys with a TTL.
+    command: valkey-server --save "" --appendonly no --maxmemory 1gb --maxmemory-policy volatile-lru
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s

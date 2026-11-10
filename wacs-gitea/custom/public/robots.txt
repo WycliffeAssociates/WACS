@@ -1,5 +1,16 @@
 User-agent: *
 Crawl-delay: 1
+# Commit-pinned, history and generated views: expensive to render and
+# effectively infinite for crawlers. Branch views (/src/branch/) stay crawlable.
+Disallow: /*/*/src/commit/
+Disallow: /*/*/commit/
+Disallow: /*/*/commits/
+Disallow: /*/*/blame/
+Disallow: /*/*/compare/
+Disallow: /*/*/raw/commit/
+Disallow: /*/*/archive/
+Disallow: /*/*/graph
+Disallow: /*/*/activity
 
 User-agent: meta-externalagent
-Disallow: /  
+Disallow: /
