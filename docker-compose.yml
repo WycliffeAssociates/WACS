@@ -78,6 +78,8 @@ services:
     # No persistence: nothing here needs to survive a restart, and skipping
     # BGSAVE avoids fork/copy-on-write memory spikes. Evict only keys with a TTL.
     command: valkey-server --save "" --appendonly no --maxmemory 1gb --maxmemory-policy volatile-lru
+    tmpfs:
+      - /data:size=64m
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
